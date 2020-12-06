@@ -1,0 +1,18 @@
+{% extends 'todo_list/base.html' %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+  <a href="{% url 'todo_list:todo_list' %}">Return to main menu</a>
+{% endblock page_header %}
+
+{% block content %}
+  <h3>Edit Task:</h3>
+  <form action="{% url 'todo_list:task_edit' task.pk %}" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+      <button class="btn btn-success" name="submit">Edit task</button>
+    {% endbuttons %}
+  </form>
+
+{% endblock content %}

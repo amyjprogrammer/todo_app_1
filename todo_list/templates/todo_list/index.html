@@ -1,0 +1,35 @@
+{% extends 'todo_list/base.html' %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+<div class="site-header text-primary text-center bg-light">
+  <h2>Todo List</h2>
+</div>
+
+{% endblock page_header %}
+
+{% block content %}
+  <div class="center-column">
+    <p>Add a new task</p>
+    <form action="{% url 'todo_list:todo_list' %}" method="post">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      {% buttons %}
+        <button class="btn btn-primary" name="submit">Submit</button>
+      {% endbuttons %}
+  </form>
+  </div>
+
+  {% for task in tasks %}
+    <div class="item-row">
+      <a class="btn btn-sm btn-secondary" href="{% url 'todo_list:task_edit' task.id %}">Update</a>
+      <a class="btn btn-sm btn-danger" href="{% url 'todo_list:task_delete' task.id %}">Delete</a>
+      {% if task.completed == True %}
+        <strike>{{ task }}</strike>
+      {% else %}
+        <span>{{ task }}</span>
+      {% endif %}
+    </div>
+  {% endfor %}
+
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% extends 'todo_list/base.html' %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+  <h2>Delete Task</h2>
+{% endblock page_header %}
+
+{% block content %}
+  <h4>Are you sure you want to delete the task "{{ task }}"?</h4>
+  <a href="{% url 'todo_list:todo_list' %}">Cancel</a>
+  <form action="{% url 'todo_list:task_delete' task.pk %}" method="post">
+    {% csrf_token %}
+
+    <button class="btn btn-danger" name="submit">Delete</button>
+    
+  </form>
+
+{% endblock content %}
